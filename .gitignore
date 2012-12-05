@@ -3,3 +3,7 @@ target
 data
 .project
 .settings
+
+hornetq-version-tests.iml
+**/*.iml
+.idea

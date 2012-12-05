@@ -43,6 +43,14 @@
    </connection-factory>
 
 
+   <connection-factory name="discoveryFactory">
+      <ha>false</ha>
+      <discovery-group-ref discovery-group-name="dg-group1"/>
+      <entries>
+         <entry name="/DiscoveryFactory"/>
+      </entries>
+   </connection-factory>
+
    <queue name="DLQ">
       <entry name="/queue/DLQ"/>
    </queue>

@@ -18,6 +18,11 @@
          <param key="host"  value="${hornetq.remoting.netty.host:localhost}"/>
          <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </connector>
+      <connector name="discovery">
+         <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
+         <param key="host"  value="${hornetq.remoting.netty.host:localhost}"/>
+         <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
+      </connector>
    </connectors>
 
    <acceptors>
@@ -27,6 +32,31 @@
          <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </acceptor>
    </acceptors>
+
+   <broadcast-groups>
+		<broadcast-group name="bg-group1">
+			<group-address>231.7.7.7</group-address>
+			<group-port>9876</group-port>
+			<broadcast-period>1000</broadcast-period>
+         <connector-ref>netty</connector-ref>
+		</broadcast-group>
+	</broadcast-groups>
+
+	<discovery-groups>
+		<discovery-group name="dg-group1">
+			<group-address>231.7.7.7</group-address>
+			<group-port>9876</group-port>
+			<refresh-timeout>60000</refresh-timeout>
+		</discovery-group>
+	</discovery-groups>
+
+	<cluster-connections>
+		<cluster-connection name="my-cluster">
+			<address>jms</address>
+         <connector-ref>netty-connector</connector-ref>
+			<discovery-group-ref discovery-group-name="dg-group1"/>
+		</cluster-connection>
+	</cluster-connections>
 
    <security-settings>
       <security-setting match="#">
